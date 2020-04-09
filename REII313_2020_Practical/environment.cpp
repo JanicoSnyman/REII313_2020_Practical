@@ -1,6 +1,5 @@
 #include "environment.h"
 
-environment::environment()
-{
+Environment::Environment() {
 
 }
