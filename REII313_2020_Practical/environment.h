@@ -7,6 +7,7 @@
 #include <QBrush>
 #include <QTimer>
 #include <QDebug>
+#include "config.h"
 
 class Environment : public QGraphicsScene {
 Q_OBJECT
