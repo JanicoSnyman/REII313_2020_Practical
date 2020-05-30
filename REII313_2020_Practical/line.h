@@ -13,7 +13,7 @@
 
 
 class Line : public QGraphicsItem {
-    Q_OBJECT
+
 public:
     Line();
     void update();

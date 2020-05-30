@@ -13,7 +13,7 @@
 
 
 class Gate : public QGraphicsItem {
-    Q_OBJECT
+
 public:
     Gate();
     virtual void update() = 0;
