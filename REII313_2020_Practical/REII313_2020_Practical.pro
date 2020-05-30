@@ -23,7 +23,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     environment.cpp \
-    node.cpp
+    node.cpp \
+    line.cpp \
+    gate.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -33,4 +35,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     environment.h \
     config.h \
-    node.h
+    node.h \
+    line.h \
+    gate.h
