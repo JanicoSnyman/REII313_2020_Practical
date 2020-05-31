@@ -1,7 +1,8 @@
 #include "node.h"
 
-Node::Node() {
-
+Node::Node(const int x, const int y) {
+    this->x = x;
+    this->y = y;
 }
 
 void Node::update() {
@@ -9,12 +10,12 @@ void Node::update() {
 }
 
 QRectF Node::boundingRect() const {
-    return QRectF(200, 200, 50, 50);
+    return QRectF(x, y, 10, 10);
 }
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
-    painter->drawRect(200,200,50,50);
+    painter->drawRect(x, y, 10, 10);
 }
 
 

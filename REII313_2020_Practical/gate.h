@@ -5,6 +5,7 @@
 #include <QPen>
 #include <QColor>
 #include <QBrush>
+#include <QPainter>
 #include <QTimer>
 #include <QDebug>
 #include <QList>
@@ -17,9 +18,8 @@ class Gate : public QGraphicsItem {
 public:
     Gate();
     virtual void update() = 0;
-private:
-    QList<Node *> inputs;
-    QList<Node *> outputs;
+    QList<Node *> * inputs;
+    QList<Node *> * outputs;
 };
 
 #endif // GATE_H

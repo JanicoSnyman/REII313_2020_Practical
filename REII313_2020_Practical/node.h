@@ -13,7 +13,7 @@
 
 class Node : public QGraphicsItem {
 public:
-    Node();
+    Node(const int x, const int y);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
     QRectF boundingRect() const;

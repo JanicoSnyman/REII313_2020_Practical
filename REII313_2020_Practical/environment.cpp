@@ -2,6 +2,7 @@
 
 Environment::Environment() {
     this->nodes = new QList<Node *>;
+    this->gates = new QList<Gate *>;
 
     this->buttonAND = new QPushButton();
     this->buttonAND->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
@@ -44,11 +45,15 @@ void Environment::addOR() {
 }
 
 void Environment::addNOT() {
+    Gate * newGate = new GateNOT();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
     qDebug() << "add Not";
 }
 
 void Environment::addNode() {
-    Node * newNode = new Node();
+    Node * newNode = new Node(200, 200);
     newNode->setFlag(QGraphicsItem::ItemIsMovable, true);
     this->addItem(newNode);
     this->nodes->push_back(newNode);

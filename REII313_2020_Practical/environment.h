@@ -11,6 +11,7 @@
 #include "config.h"
 #include "node.h"
 #include "gateand.h"
+#include "gatenot.h"
 #include "line.h"
 
 class Environment : public QGraphicsScene {
@@ -30,6 +31,7 @@ private:
     QGraphicsTextItem * roleSelection;
 
     QList <Node *> * nodes;
+    QList <Gate *> * gates;
 };
 
 
