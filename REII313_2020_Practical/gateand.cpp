@@ -14,3 +14,7 @@ void GateAND::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 QRectF GateAND::boundingRect() const {
 
 }
+
+void GateAND::update() {
+
+}

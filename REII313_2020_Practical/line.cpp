@@ -4,3 +4,7 @@ Line::Line()
 {
 
 }
+
+void Line::update() {
+
+}
