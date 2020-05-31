@@ -18,7 +18,8 @@ public:
     Line();
     void update();
 private:
-    QList <Node *> nodes;
+    Node * sourceNode;
+    Node * endNode;
 };
 
 #endif // LINE_H

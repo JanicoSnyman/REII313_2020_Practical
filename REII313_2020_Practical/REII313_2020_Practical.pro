@@ -25,7 +25,8 @@ SOURCES += \
     environment.cpp \
     node.cpp \
     line.cpp \
-    gate.cpp
+    gate.cpp \
+    gateand.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -37,4 +38,5 @@ HEADERS += \
     config.h \
     node.h \
     line.h \
-    gate.h
+    gate.h \
+    gateand.h
