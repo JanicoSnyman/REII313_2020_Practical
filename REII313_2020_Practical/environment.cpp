@@ -3,6 +3,7 @@
 Environment::Environment() {
     this->nodes = new QList<Node *>;
     this->gates = new QList<Gate *>;
+    this->lines = new QList<Line *>;
 
     this->buttonAND = new QPushButton();
     this->buttonAND->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
@@ -28,12 +29,23 @@ Environment::Environment() {
     this->addWidget(this->buttonNode);
     connect(this->buttonNode, SIGNAL(clicked()), this, SLOT(addNode()));
 
+    this->buttonLine = new QPushButton();
+    this->buttonLine->setGeometry(padding + 8*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonLine->setText("Line");
+    this->addWidget(this->buttonLine);
+    connect(this->buttonLine, SIGNAL(clicked()), this, SLOT(addLine()));
+
     this->addRect(0, 0, sceneWidth, taskbar);
     //this->addRect(padding + 2*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
     //this->addRect(padding + 3*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
 }
 
 void Environment::addAND() {
+    Gate * newGate = new GateAND();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
+
     qDebug() << "add And";
 
     //this.newgate = new gateAnd();
@@ -49,6 +61,8 @@ void Environment::addNOT() {
     newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
     this->addItem(newGate);
     this->gates->push_back(newGate);
+    qDebug() << this->gates->first()->inputs->first()->scenePos();
+    qDebug() << this->gates->first()->scenePos();
     qDebug() << "add Not";
 }
 
@@ -59,4 +73,8 @@ void Environment::addNode() {
     this->nodes->push_back(newNode);
 
     qDebug() << "add Node";
+}
+
+void Environment::addLine() {
+    qDebug() << "add Line";
 }

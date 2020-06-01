@@ -2,8 +2,7 @@
 #define GATEAND_H
 #include "gate.h"
 
-class GateAND
-{
+class GateAND : public Gate {
 public:
     GateAND();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

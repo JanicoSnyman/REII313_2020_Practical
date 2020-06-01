@@ -23,15 +23,19 @@ public slots:
     void addOR();
     void addNOT();
     void addNode();
+    void addLine();
 private:
     QPushButton * buttonAND;
     QPushButton * buttonOR;
     QPushButton * buttonNOT;
     QPushButton * buttonNode;
+    QPushButton * buttonLine;
+
     QGraphicsTextItem * roleSelection;
 
     QList <Node *> * nodes;
     QList <Gate *> * gates;
+    QList <Line *> * lines;
 };
 
 

@@ -5,6 +5,7 @@
 #include <QPen>
 #include <QColor>
 #include <QBrush>
+#include <QPainter>
 #include <QTimer>
 #include <QDebug>
 #include <QList>
@@ -16,6 +17,9 @@ class Line : public QGraphicsItem {
 
 public:
     Line();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                   QWidget *widget);
+    QRectF boundingRect() const;
     void update();
 private:
     Node * sourceNode;

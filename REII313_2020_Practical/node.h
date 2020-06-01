@@ -18,10 +18,10 @@ public:
                    QWidget *widget);
     QRectF boundingRect() const;
     void update();
-private:
-    int x;
-    int y;
     bool level;
+private:
+    int xpos;
+    int ypos;
 };
 
 #endif // NODE_H

@@ -7,10 +7,12 @@ GateNOT::GateNOT()
 
     Node * input = new Node(90, 145);
     input->setParentItem(this);
+    input->level = 0;
     this->inputs->push_back(input);
 
     Node * output = new Node(210, 145);
     output->setParentItem(this);
+    output->level = 1;
     this->outputs->push_back(output);
 }
 
