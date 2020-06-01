@@ -47,13 +47,14 @@ void Environment::addAND() {
     this->gates->push_back(newGate);
 
     qDebug() << "add And";
-
+    this->update();
     //this.newgate = new gateAnd();
     //this.setflag(QGraphicsItem::ItemIsMovable);
 }
 
 void Environment::addOR() {
     qDebug() << "add Or";
+    this->update();
 }
 
 void Environment::addNOT() {
@@ -64,6 +65,7 @@ void Environment::addNOT() {
     qDebug() << this->gates->first()->inputs->first()->scenePos();
     qDebug() << this->gates->first()->scenePos();
     qDebug() << "add Not";
+    this->update();
 }
 
 void Environment::addNode() {
@@ -73,8 +75,15 @@ void Environment::addNode() {
     this->nodes->push_back(newNode);
 
     qDebug() << "add Node";
+    this->update();
 }
 
 void Environment::addLine() {
+    Line * newLine = new Line();
+    newLine->setFlag(QGraphicsItem::ItemIsMovable, true);
+    newLine->sourcePoint = QPointF(this->nodes->first()->scenePos().x() + 200, this->nodes->first()->scenePos().y() + 200);
+    this->addItem(newLine);
+    this->lines->push_back(newLine);
     qDebug() << "add Line";
+    this->update();
 }

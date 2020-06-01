@@ -17,7 +17,7 @@ QRectF Node::boundingRect() const {
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
     if(this->level) {
-        painter->setPen(Qt::green);
+        painter->setPen(Qt::darkGreen);
     } else {
         painter->setPen(Qt::red);
     }

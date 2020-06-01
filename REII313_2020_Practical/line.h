@@ -21,6 +21,9 @@ public:
                    QWidget *widget);
     QRectF boundingRect() const;
     void update();
+
+    QPointF sourcePoint;
+    QPointF endPoint;
 private:
     Node * sourceNode;
     Node * endNode;
