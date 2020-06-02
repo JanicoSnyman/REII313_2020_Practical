@@ -1,11 +1,20 @@
 #include "environment.h"
 
+
+/********  ********/
 Environment::Environment() {
+    /******** Initialize variables ********/
     this->nodes = new QList<Node *>;
     this->gates = new QList<Gate *>;
     this->lines = new QList<Line *>;
     lineConnecting = 0;
 
+    /******** Setup update timer for environment ********/
+    this->updateTimer = new QTimer(this);
+    connect(this->updateTimer, SIGNAL(timeout()), this, SLOT(updateEnvironment()));
+    this->updateTimer->start(50);
+
+    /******** Setup push buttons ********/
     this->buttonAND = new QPushButton();
     this->buttonAND->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonAND->setText("AND");
@@ -37,12 +46,12 @@ Environment::Environment() {
     connect(this->buttonLine, SIGNAL(clicked()), this, SLOT(addLine()));
 
     this->addRect(0, 0, sceneWidth, taskbar);
-    //this->addRect(padding + 2*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
-    //this->addRect(padding + 3*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
 }
 
 void Environment::update() {
+    /******** Update entire scene ********/
     this->QGraphicsScene::update();
+    /******** Update lines ********/
     int i;
     for(i = 0; i < this->lines->length(); i++) {
         Line * item = this->lines->operator[](i);
@@ -50,8 +59,13 @@ void Environment::update() {
     }
 }
 
+void Environment::updateEnvironment() {
+    this->update();
+}
+
 void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
     int i;
+    /******** Handle double click for scene nodes ********/
     if(!this->nodes->isEmpty()){
         for(i = 0; i < this->nodes->length(); i++) {
             Node * item = this->nodes->operator[](i);
@@ -68,6 +82,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
             }
         }
     }
+    /******** Handle double click for lines ********/
     if(!this->lines->isEmpty()) {
         for(i = 0; i < this->lines->length(); i++) {
             Line * item = this->lines->operator[](i);
@@ -90,8 +105,6 @@ void Environment::addAND() {
 
     qDebug() << "add And";
     this->update();
-    //this.newgate = new gateAnd();
-    //this.setflag(QGraphicsItem::ItemIsMovable);
 }
 
 void Environment::addOR() {

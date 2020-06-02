@@ -24,4 +24,10 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(xpos, ypos, 10, 10);
 }
 
+int Node::xoffset() {
+    return this->xpos;
+}
 
+int Node::yoffset() {
+    return this->ypos;
+}

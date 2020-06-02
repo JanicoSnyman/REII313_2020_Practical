@@ -26,6 +26,7 @@ public slots:
     void addNOT();
     void addNode();
     void addLine();
+    void updateEnvironment();
 private:
     QPushButton * buttonAND;
     QPushButton * buttonOR;
@@ -39,6 +40,8 @@ private:
 
     unsigned int lineConnecting;
     Line * lineToConnect;
+
+    QTimer * updateTimer;
 };
 
 
