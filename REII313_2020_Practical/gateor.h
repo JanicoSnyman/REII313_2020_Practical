@@ -1,14 +1,14 @@
-#ifndef GATENOT_H
-#define GATENOT_H
+#ifndef GATEOR_H
+#define GATEOR_H
 #include "gate.h"
 
-class GateNOT : public Gate {
+class GateOR : public Gate {
 public:
-    GateNOT();
+    GateOR();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
     QRectF boundingRect() const;
     void update();
 };
 
-#endif // GATENOT_H
+#endif // GATEOR_H

@@ -12,6 +12,7 @@
 #include "node.h"
 #include "gateand.h"
 #include "gatenot.h"
+#include "gateor.h"
 #include "line.h"
 
 class Environment : public QGraphicsScene {
