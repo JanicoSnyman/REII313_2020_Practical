@@ -4,6 +4,8 @@ Node::Node(const int x, const int y) {
     this->xpos = x;
     this->ypos = y;
     this->level = 0;
+    this->gateOut = false;
+    this->gateIn = false;
 }
 
 void Node::update() {

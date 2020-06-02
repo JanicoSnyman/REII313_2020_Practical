@@ -57,6 +57,10 @@ void Environment::update() {
         Line * item = this->lines->operator[](i);
         item->update();
     }
+    for(i = 0; i < this->gates->length(); i++) {
+        Gate * item = this->gates->operator[](i);
+        item->updateGate();
+    }
 }
 
 void Environment::updateEnvironment() {

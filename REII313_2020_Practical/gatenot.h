@@ -9,7 +9,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
     QRectF boundingRect() const;
-    void update();
+    void updateGate();
 };
 
 #endif // GATENOT_H

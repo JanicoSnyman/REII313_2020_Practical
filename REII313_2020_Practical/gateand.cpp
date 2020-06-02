@@ -8,16 +8,19 @@ GateAND::GateAND()
     Node * input1 = new Node(90, 120);
     input1->setParentItem(this);
     input1->level = 0;
+    input1->gateIn = true;
     this->inputs->push_back(input1);
 
     Node * input2 = new Node(90, 170);
     input2->setParentItem(this);
     input2->level = 0;
+    input2->gateIn = true;
     this->inputs->push_back(input2);
 
     Node * output = new Node(200, 145);
     output->setParentItem(this);
     output->level = 0;
+    output->gateOut = true;
     this->outputs->push_back(output);
 }
 
@@ -34,6 +37,6 @@ QRectF GateAND::boundingRect() const {
     return QRectF(90, 100, 120, 100);
 }
 
-void GateAND::update() {
-
+void GateAND::updateGate() {
+    this->outputs->first()->level = this->inputs->at(0)->level && this->inputs->at(1)->level;
 }

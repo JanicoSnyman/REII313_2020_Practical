@@ -19,6 +19,8 @@ public:
     QRectF boundingRect() const;
     void update();
     bool level;
+    bool gateOut;
+    bool gateIn;
     int xoffset();
     int yoffset();
 private:

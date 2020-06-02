@@ -8,11 +8,13 @@ GateNOT::GateNOT()
     Node * input = new Node(90, 145);
     input->setParentItem(this);
     input->level = 0;
+    input->gateIn = true;
     this->inputs->push_back(input);
 
     Node * output = new Node(210, 145);
     output->setParentItem(this);
     output->level = 1;
+    output->gateOut = true;
     this->outputs->push_back(output);
 }
 
@@ -28,6 +30,6 @@ QRectF GateNOT::boundingRect() const {
     return QRectF(90, 100, 130, 100);
 }
 
-void GateNOT::update() {
-
+void GateNOT::updateGate() {
+    this->outputs->first()->level = !this->inputs->first()->level;
 }
