@@ -33,6 +33,6 @@ QRectF GateOR::boundingRect() const {
     return QRectF(90, 100, 120, 100);
 }
 
-void GateOR::update() {
+void GateOR::updateGate() {
 
 }
