@@ -16,6 +16,19 @@ void Line::update() {
         this->endPoint = QPointF(this->endNode->scenePos().x() + this->endNode->xoffset() + 5, this->endNode->scenePos().y() + this->endNode->yoffset() + 5);
     }
 
+    if(sourceNode != nullptr && endNode != nullptr) {
+        if(sourceNode->gateIn && !endNode->gateIn) {
+            sourceNode->level = endNode->level;
+        } else if(!sourceNode->gateIn && endNode->gateIn) {
+            endNode->level = sourceNode->level;
+        } else if(sourceNode->gateOut && !endNode->gateOut) {
+            endNode->level = sourceNode->level;
+        } else if(!sourceNode->gateOut && endNode->gateOut) {
+            sourceNode->level = endNode->level;
+        } else {
+            endNode->level = sourceNode->level;
+        }
+    }
 }
 
 void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
