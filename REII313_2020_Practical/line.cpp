@@ -10,10 +10,10 @@ Line::Line()
 
 void Line::update() {
     if(sourceNode != nullptr) {
-        this->sourcePoint = QPointF(this->sourceNode->scenePos().x() + this->sourceNode->xoffset(), this->sourceNode->scenePos().y() + this->sourceNode->yoffset());
+        this->sourcePoint = QPointF(this->sourceNode->scenePos().x() + this->sourceNode->xoffset() + 5, this->sourceNode->scenePos().y() + this->sourceNode->yoffset() + 5);
     }
     if(endNode != nullptr) {
-        this->endPoint = QPointF(this->endNode->scenePos().x() + this->endNode->xoffset(), this->endNode->scenePos().y() + this->endNode->yoffset());
+        this->endPoint = QPointF(this->endNode->scenePos().x() + this->endNode->xoffset() + 5, this->endNode->scenePos().y() + this->endNode->yoffset() + 5);
     }
 }
 

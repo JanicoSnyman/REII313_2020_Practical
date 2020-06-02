@@ -134,12 +134,10 @@ void Environment::addAND() {
     this->gates->push_back(newGate);
 
     qDebug() << "add And";
-    this->update();
 }
 
 void Environment::addOR() {
     qDebug() << "add Or";
-    this->update();
 }
 
 void Environment::addNOT() {
@@ -150,7 +148,6 @@ void Environment::addNOT() {
     qDebug() << this->gates->first()->inputs->first()->scenePos();
     qDebug() << this->gates->first()->scenePos();
     qDebug() << "add Not";
-    this->update();
 }
 
 void Environment::addNode() {
@@ -160,7 +157,6 @@ void Environment::addNode() {
     this->nodes->push_back(newNode);
 
     qDebug() << "add Node";
-    this->update();
 }
 
 void Environment::addLine() {
@@ -168,5 +164,4 @@ void Environment::addLine() {
     this->addItem(newLine);
     this->lines->push_back(newLine);
     qDebug() << "add Line";
-    this->update();
 }
