@@ -18,6 +18,7 @@ class Environment : public QGraphicsScene {
 Q_OBJECT
 public:
     Environment();
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event);
 public slots:
     void addAND();
     void addOR();

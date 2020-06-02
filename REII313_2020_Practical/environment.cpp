@@ -40,6 +40,19 @@ Environment::Environment() {
     //this->addRect(padding + 3*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
 }
 
+void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
+    int i;
+    for(i = 0; i < this->nodes->length(); i++) {
+        Node * item = this->nodes->operator[](i);
+        if(item->isUnderMouse()) {
+            item->level = item->level != 1;
+        }
+    }
+
+    this->update();
+    qDebug() << "Double Clicked!!";
+}
+
 void Environment::addAND() {
     Gate * newGate = new GateAND();
     newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
