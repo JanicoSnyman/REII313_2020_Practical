@@ -4,6 +4,7 @@ Environment::Environment() {
     this->nodes = new QList<Node *>;
     this->gates = new QList<Gate *>;
     this->lines = new QList<Line *>;
+    lineConnecting = 0;
 
     this->buttonAND = new QPushButton();
     this->buttonAND->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
@@ -40,12 +41,40 @@ Environment::Environment() {
     //this->addRect(padding + 3*taskbar, padding, taskbar - 2*padding, taskbar - 2*padding);
 }
 
+void Environment::update() {
+    this->QGraphicsScene::update();
+    int i;
+    for(i = 0; i < this->lines->length(); i++) {
+        Line * item = this->lines->operator[](i);
+        item->update();
+    }
+}
+
 void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
     int i;
-    for(i = 0; i < this->nodes->length(); i++) {
-        Node * item = this->nodes->operator[](i);
-        if(item->isUnderMouse()) {
-            item->level = item->level != 1;
+    if(!this->nodes->isEmpty()){
+        for(i = 0; i < this->nodes->length(); i++) {
+            Node * item = this->nodes->operator[](i);
+            if(item->isUnderMouse() && lineConnecting == 0) {
+                item->level = item->level != 1;
+            } else if(item->isUnderMouse() && lineConnecting == 1) {
+                lineToConnect->sourceNode = item;
+                lineToConnect->sourcePoint = QPointF(item->scenePos().x() + 200, item->scenePos().y() + 200);
+                lineConnecting = 2;
+            } else if(item->isUnderMouse() && lineConnecting == 2) {
+                lineToConnect->endNode = item;
+                lineToConnect->endPoint = QPointF(item->scenePos().x() + 200, item->scenePos().y() + 200);
+                lineConnecting = 0;
+            }
+        }
+    }
+    if(!this->lines->isEmpty()) {
+        for(i = 0; i < this->lines->length(); i++) {
+            Line * item = this->lines->operator[](i);
+            if(item->isUnderMouse() && lineConnecting  == 0) {
+                lineToConnect = item;
+                lineConnecting = 1;
+            }
         }
     }
 
@@ -93,8 +122,6 @@ void Environment::addNode() {
 
 void Environment::addLine() {
     Line * newLine = new Line();
-    newLine->setFlag(QGraphicsItem::ItemIsMovable, true);
-    newLine->sourcePoint = QPointF(this->nodes->first()->scenePos().x() + 200, this->nodes->first()->scenePos().y() + 200);
     this->addItem(newLine);
     this->lines->push_back(newLine);
     qDebug() << "add Line";

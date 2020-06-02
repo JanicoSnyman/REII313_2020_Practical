@@ -24,7 +24,6 @@ public:
 
     QPointF sourcePoint;
     QPointF endPoint;
-private:
     Node * sourceNode;
     Node * endNode;
 };

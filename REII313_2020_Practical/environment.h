@@ -19,6 +19,7 @@ Q_OBJECT
 public:
     Environment();
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event);
+    void update();
 public slots:
     void addAND();
     void addOR();
@@ -32,11 +33,12 @@ private:
     QPushButton * buttonNode;
     QPushButton * buttonLine;
 
-    QGraphicsTextItem * roleSelection;
-
     QList <Node *> * nodes;
     QList <Gate *> * gates;
     QList <Line *> * lines;
+
+    unsigned int lineConnecting;
+    Line * lineToConnect;
 };
 
 
