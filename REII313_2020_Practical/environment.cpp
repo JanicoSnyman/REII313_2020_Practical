@@ -1,6 +1,5 @@
 #include "environment.h"
 
-//gasdfhbsdjvbijsrbgedw
 /********  ********/
 Environment::Environment() {
     /******** Initialize variables ********/
@@ -141,6 +140,10 @@ void Environment::addAND() {
 }
 
 void Environment::addOR() {
+    Gate * newGate = new GateOR();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
     qDebug() << "add Or";
 }
 
