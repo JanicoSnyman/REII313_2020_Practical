@@ -38,5 +38,5 @@ QRectF GateAND::boundingRect() const {
 }
 
 void GateAND::updateGate() {
-
+    this->outputs->first()->level = this->inputs->at(0)->level && this->inputs->at(1)->level;
 }
