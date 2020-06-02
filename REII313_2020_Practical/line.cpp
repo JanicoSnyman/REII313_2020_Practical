@@ -15,6 +15,7 @@ void Line::update() {
     if(endNode != nullptr) {
         this->endPoint = QPointF(this->endNode->scenePos().x() + this->endNode->xoffset() + 5, this->endNode->scenePos().y() + this->endNode->yoffset() + 5);
     }
+
 }
 
 void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
