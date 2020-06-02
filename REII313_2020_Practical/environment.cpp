@@ -73,15 +73,45 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                 item->level = item->level != 1;
             } else if(item->isUnderMouse() && lineConnecting == 1) {
                 lineToConnect->sourceNode = item;
-                lineToConnect->sourcePoint = QPointF(item->scenePos().x() + 200, item->scenePos().y() + 200);
                 lineConnecting = 2;
             } else if(item->isUnderMouse() && lineConnecting == 2) {
                 lineToConnect->endNode = item;
-                lineToConnect->endPoint = QPointF(item->scenePos().x() + 200, item->scenePos().y() + 200);
                 lineConnecting = 0;
             }
         }
     }
+
+    if(!this->gates->isEmpty()) {
+        for(i = 0; i < this->gates->length(); i++) {
+            Gate * item = this->gates->operator[](i);
+            int j;
+            if(!item->inputs->isEmpty()) {
+                for(j = 0; j < item->inputs->length(); j++) {
+                    Node * inputNode = item->inputs->operator[](j);
+                    if(inputNode->isUnderMouse() && lineConnecting == 1) {
+                        lineToConnect->sourceNode = inputNode;
+                        lineConnecting = 2;
+                    } else if(inputNode->isUnderMouse() && lineConnecting == 2) {
+                        lineToConnect->endNode = inputNode;
+                        lineConnecting = 0;
+                    }
+                }
+            }
+            if(!item->outputs->isEmpty()) {
+                for(j = 0; j < item->outputs->length(); j++) {
+                    Node * outputNode = item->outputs->operator[](j);
+                    if(outputNode->isUnderMouse() && lineConnecting == 1) {
+                        lineToConnect->sourceNode = outputNode;
+                        lineConnecting = 2;
+                    } else if(outputNode->isUnderMouse() && lineConnecting == 2) {
+                        lineToConnect->endNode = outputNode;
+                        lineConnecting = 0;
+                    }
+                }
+            }
+        }
+    }
+
     /******** Handle double click for lines ********/
     if(!this->lines->isEmpty()) {
         for(i = 0; i < this->lines->length(); i++) {
