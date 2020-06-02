@@ -17,7 +17,7 @@ class Gate : public QGraphicsItem {
 
 public:
     Gate();
-    virtual void update() = 0;
+    virtual void updateGate() = 0;
     QList<Node *> * inputs;
     QList<Node *> * outputs;
 };

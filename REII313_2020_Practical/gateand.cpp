@@ -37,6 +37,6 @@ QRectF GateAND::boundingRect() const {
     return QRectF(90, 100, 120, 100);
 }
 
-void GateAND::update() {
+void GateAND::updateGate() {
 
 }

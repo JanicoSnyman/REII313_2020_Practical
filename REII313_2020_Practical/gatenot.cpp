@@ -30,6 +30,6 @@ QRectF GateNOT::boundingRect() const {
     return QRectF(90, 100, 130, 100);
 }
 
-void GateNOT::update() {
-
+void GateNOT::updateGate() {
+    this->outputs->first()->level = !this->inputs->first()->level;
 }
