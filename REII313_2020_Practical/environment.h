@@ -11,6 +11,7 @@
 #include "config.h"
 #include "node.h"
 #include "gateand.h"
+#include "gatenand.h"
 #include "gatenot.h"
 #include "gateor.h"
 #include "line.h"
@@ -23,6 +24,7 @@ public:
     void update();
 public slots:
     void addAND();
+    void addNAND();
     void addOR();
     void addNOT();
     void addNode();
@@ -30,6 +32,7 @@ public slots:
     void updateEnvironment();
 private:
     QPushButton * buttonAND;
+    QPushButton * buttonNAND;
     QPushButton * buttonOR;
     QPushButton * buttonNOT;
     QPushButton * buttonNode;
