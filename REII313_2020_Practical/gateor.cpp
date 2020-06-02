@@ -34,5 +34,5 @@ QRectF GateOR::boundingRect() const {
 }
 
 void GateOR::updateGate() {
-
+    this->outputs->first()->level = this->inputs->at(0)->level || this->inputs->at(1)->level;
 }
