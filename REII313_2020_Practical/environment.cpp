@@ -86,6 +86,19 @@ Environment::Environment() {
     this->connectingEnableText->setY(taskbar + 10);
     this->addItem(this->connectingEnableText);
     this->connectingEnableText->hide();
+
+
+    this->helpText1 = new QGraphicsTextItem("Double click on an individual node to toggle its level");
+    this->helpText1->setX(padding);
+    this->helpText1->setY(sceneHeight + taskbar);
+    this->helpText1->setScale(1.5);
+    this->addItem(this->helpText1);
+
+    this->helpText2 = new QGraphicsTextItem("Press the \"C\" button to enable the connecting of lines to nodes");
+    this->helpText2->setX(padding);
+    this->helpText2->setY(sceneHeight + 2*taskbar);
+    this->helpText2->setScale(1.5);
+    this->addItem(this->helpText2);
 }
 
 void Environment::update() {

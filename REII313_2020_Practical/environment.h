@@ -58,6 +58,10 @@ private:
 
     QRectF mainView;
     QRectF helpView;
+
+    QGraphicsTextItem * helpText1;
+    QGraphicsTextItem * helpText2;
+    QGraphicsTextItem * helpText3;
 };
 
 
