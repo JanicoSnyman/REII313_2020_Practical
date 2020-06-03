@@ -26,6 +26,8 @@ public:
     QPointF endPoint;
     Node * sourceNode;
     Node * endNode;
+
+    bool selected;
 };
 
 #endif // LINE_H

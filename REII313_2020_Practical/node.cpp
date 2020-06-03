@@ -18,10 +18,14 @@ QRectF Node::boundingRect() const {
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
+    QPen pen;
+    pen.setWidth(2);
     if(this->level) {
-        painter->setPen(Qt::darkGreen);
+        pen.setColor(Qt::darkGreen);
+        painter->setPen(pen);
     } else {
-        painter->setPen(Qt::red);
+        pen.setColor(Qt::red);
+        painter->setPen(pen);
     }
     painter->drawRect(xpos, ypos, 10, 10);
 }

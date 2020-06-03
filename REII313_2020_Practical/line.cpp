@@ -6,6 +6,8 @@ Line::Line()
     this->endPoint = QPointF(150, 200);
     this->sourceNode = nullptr;
     this->endNode = nullptr;
+
+    selected = false;
 }
 
 void Line::update() {
@@ -33,6 +35,12 @@ void Line::update() {
 
 void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
+    QPen pen;
+    if(selected) {
+        pen.setWidth(2);
+        pen.setColor(Qt::blue);
+    }
+    painter->setPen(pen);
     painter->drawLine(this->sourcePoint, this->endPoint);
 }
 

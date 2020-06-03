@@ -86,6 +86,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                 lineConnecting = 2;
             } else if(item->isUnderMouse() && lineConnecting == 2) {
                 lineToConnect->endNode = item;
+                lineToConnect->selected = false;
                 lineConnecting = 0;
             }
         }
@@ -103,6 +104,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                         lineConnecting = 2;
                     } else if(inputNode->isUnderMouse() && lineConnecting == 2) {
                         lineToConnect->endNode = inputNode;
+                        lineToConnect->selected = false;
                         lineConnecting = 0;
                     }
                 }
@@ -115,6 +117,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                         lineConnecting = 2;
                     } else if(outputNode->isUnderMouse() && lineConnecting == 2) {
                         lineToConnect->endNode = outputNode;
+                        lineToConnect->selected = false;
                         lineConnecting = 0;
                     }
                 }
@@ -128,6 +131,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
             Line * item = this->lines->operator[](i);
             if(item->isUnderMouse() && lineConnecting  == 0) {
                 lineToConnect = item;
+                lineToConnect->selected = true;
                 lineConnecting = 1;
             }
         }
