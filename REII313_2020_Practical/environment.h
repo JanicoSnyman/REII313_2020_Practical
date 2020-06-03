@@ -21,6 +21,7 @@ Q_OBJECT
 public:
     Environment();
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event);
+    void keyPressEvent(QKeyEvent * event);
     void update();
 public slots:
     void addAND();
@@ -42,6 +43,8 @@ private:
     QList <Gate *> * gates;
     QList <Line *> * lines;
 
+    bool connectingEnable;
+    QGraphicsTextItem * connectingEnableText;
     unsigned int lineConnecting;
     Line * lineToConnect;
     QGraphicsTextItem * selectSource;

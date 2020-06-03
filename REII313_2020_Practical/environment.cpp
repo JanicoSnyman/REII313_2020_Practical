@@ -6,6 +6,7 @@ Environment::Environment() {
     this->nodes = new QList<Node *>;
     this->gates = new QList<Gate *>;
     this->lines = new QList<Line *>;
+    connectingEnable = false;
     lineConnecting = 0;
 
     /******** Setup update timer for environment ********/
@@ -65,6 +66,12 @@ Environment::Environment() {
     this->selectEnd->setY(taskbar + 10);
     this->addItem(this->selectEnd);
     this->selectEnd->hide();
+
+    this->connectingEnableText = new QGraphicsTextItem("Line connecting enabled, double click line to select");
+    this->connectingEnableText->setX(sceneWidth - 300);
+    this->connectingEnableText->setY(taskbar + 10);
+    this->addItem(this->connectingEnableText);
+    this->connectingEnableText->hide();
 }
 
 void Environment::update() {
@@ -151,17 +158,26 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
     if(!this->lines->isEmpty()) {
         for(i = 0; i < this->lines->length(); i++) {
             Line * item = this->lines->operator[](i);
-            if(item->isUnderMouse() && lineConnecting  == 0) {
+            if(item->isUnderMouse() && lineConnecting  == 0 && connectingEnable) {
                 lineToConnect = item;
                 lineToConnect->selected = true;
                 lineConnecting = 1;
                 this->selectSource->show();
+                this->connectingEnableText->hide();
+                connectingEnable = false;
             }
         }
     }
 
     this->update();
     qDebug() << "Double Clicked!!";
+}
+
+void Environment::keyPressEvent(QKeyEvent *event) {
+    if(event->key() == Qt::Key_C) {
+        connectingEnable = true;
+        this->connectingEnableText->show();
+    }
 }
 
 void Environment::addAND() {
