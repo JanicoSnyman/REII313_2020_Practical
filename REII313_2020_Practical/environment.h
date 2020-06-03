@@ -30,6 +30,8 @@ public slots:
     void addNOT();
     void addNode();
     void addLine();
+    void viewHelp();
+    void viewMain();
     void updateEnvironment();
 private:
     QPushButton * buttonAND;
@@ -38,6 +40,8 @@ private:
     QPushButton * buttonNOT;
     QPushButton * buttonNode;
     QPushButton * buttonLine;
+    QPushButton * buttonHelp;
+    QPushButton * buttonMainview;
 
     QList <Node *> * nodes;
     QList <Gate *> * gates;
@@ -51,6 +55,9 @@ private:
     QGraphicsTextItem * selectEnd;
 
     QTimer * updateTimer;
+
+    QRectF mainView;
+    QRectF helpView;
 };
 
 

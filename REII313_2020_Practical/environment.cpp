@@ -9,6 +9,9 @@ Environment::Environment() {
     connectingEnable = false;
     lineConnecting = 0;
 
+    mainView = QRectF(0, 0, sceneWidth, sceneHeight);
+    helpView = QRectF(0, sceneHeight, sceneWidth, sceneHeight);
+
     /******** Setup update timer for environment ********/
     this->updateTimer = new QTimer(this);
     connect(this->updateTimer, SIGNAL(timeout()), this, SLOT(updateEnvironment()));
@@ -26,7 +29,6 @@ Environment::Environment() {
     this->buttonNAND->setText("NAND");
     this->addWidget(this->buttonNAND);
     connect(this->buttonNAND, SIGNAL(clicked()), this, SLOT(addNAND()));
-
 
     this->buttonOR = new QPushButton();
     this->buttonOR->setGeometry(padding + 4*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
@@ -51,6 +53,18 @@ Environment::Environment() {
     this->buttonLine->setText("Line");
     this->addWidget(this->buttonLine);
     connect(this->buttonLine, SIGNAL(clicked()), this, SLOT(addLine()));
+
+    this->buttonHelp = new QPushButton();
+    this->buttonHelp->setGeometry(sceneWidth - 2*taskbar + padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonHelp->setText("Help");
+    this->addWidget(this->buttonHelp);
+    connect(this->buttonHelp, SIGNAL(clicked()), this, SLOT(viewHelp()));
+
+    this->buttonMainview = new QPushButton();
+    this->buttonMainview->setGeometry(padding, sceneHeight + padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonMainview->setText("Return");
+    this->addWidget(this->buttonMainview);
+    connect(this->buttonMainview, SIGNAL(clicked()), this, SLOT(viewMain()));
 
     this->addRect(0, 0, sceneWidth, taskbar);
 
@@ -230,4 +244,12 @@ void Environment::addLine() {
     this->addItem(newLine);
     this->lines->push_back(newLine);
     qDebug() << "add Line";
+}
+
+void Environment::viewHelp() {
+    this->setSceneRect(helpView);
+}
+
+void Environment::viewMain() {
+    this->setSceneRect(mainView);
 }
