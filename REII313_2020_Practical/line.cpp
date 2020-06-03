@@ -7,7 +7,7 @@ Line::Line()
     this->sourceNode = nullptr;
     this->endNode = nullptr;
 
-    selected = false;
+    this->selected = false;
 }
 
 void Line::update() {
