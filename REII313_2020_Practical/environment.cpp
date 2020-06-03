@@ -52,6 +52,19 @@ Environment::Environment() {
     connect(this->buttonLine, SIGNAL(clicked()), this, SLOT(addLine()));
 
     this->addRect(0, 0, sceneWidth, taskbar);
+
+    /******** Add text promts for line connection steps ********/
+    this->selectSource = new QGraphicsTextItem("Line selected, double click first node to connect.");
+    this->selectSource->setX(sceneWidth - 250);
+    this->selectSource->setY(taskbar + 10);
+    this->addItem(this->selectSource);
+    this->selectSource->hide();
+
+    this->selectEnd = new QGraphicsTextItem("Source selected, double click second node to connect.");
+    this->selectEnd->setX(sceneWidth - 270);
+    this->selectEnd->setY(taskbar + 10);
+    this->addItem(this->selectEnd);
+    this->selectEnd->hide();
 }
 
 void Environment::update() {
@@ -84,10 +97,13 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
             } else if(item->isUnderMouse() && lineConnecting == 1) {
                 lineToConnect->sourceNode = item;
                 lineConnecting = 2;
+                this->selectSource->hide();
+                this->selectEnd->show();
             } else if(item->isUnderMouse() && lineConnecting == 2) {
                 lineToConnect->endNode = item;
                 lineToConnect->selected = false;
                 lineConnecting = 0;
+                this->selectEnd->hide();
             }
         }
     }
@@ -102,10 +118,13 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                     if(inputNode->isUnderMouse() && lineConnecting == 1) {
                         lineToConnect->sourceNode = inputNode;
                         lineConnecting = 2;
+                        this->selectSource->hide();
+                        this->selectEnd->show();
                     } else if(inputNode->isUnderMouse() && lineConnecting == 2) {
                         lineToConnect->endNode = inputNode;
                         lineToConnect->selected = false;
                         lineConnecting = 0;
+                        this->selectEnd->hide();
                     }
                 }
             }
@@ -115,10 +134,13 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                     if(outputNode->isUnderMouse() && lineConnecting == 1) {
                         lineToConnect->sourceNode = outputNode;
                         lineConnecting = 2;
+                        this->selectSource->hide();
+                        this->selectEnd->show();
                     } else if(outputNode->isUnderMouse() && lineConnecting == 2) {
                         lineToConnect->endNode = outputNode;
                         lineToConnect->selected = false;
                         lineConnecting = 0;
+                        this->selectEnd->hide();
                     }
                 }
             }
@@ -133,6 +155,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                 lineToConnect = item;
                 lineToConnect->selected = true;
                 lineConnecting = 1;
+                this->selectSource->show();
             }
         }
     }

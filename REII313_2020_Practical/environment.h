@@ -44,6 +44,8 @@ private:
 
     unsigned int lineConnecting;
     Line * lineToConnect;
+    QGraphicsTextItem * selectSource;
+    QGraphicsTextItem * selectEnd;
 
     QTimer * updateTimer;
 };
