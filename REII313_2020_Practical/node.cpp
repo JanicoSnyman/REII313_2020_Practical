@@ -6,6 +6,7 @@ Node::Node(const int x, const int y) {
     this->level = 0;
     this->gateOut = false;
     this->gateIn = false;
+    clocked = false;
 }
 
 void Node::update() {

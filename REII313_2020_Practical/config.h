@@ -7,4 +7,6 @@
 #define taskbar 50
 #define padding 5
 
+#define nodeClockspeed 1000
+
 #endif // CONFIG_H
