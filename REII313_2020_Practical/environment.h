@@ -33,6 +33,7 @@ public slots:
     void viewHelp();
     void viewMain();
     void updateEnvironment();
+    void clockTimeout();
 private:
     QPushButton * buttonAND;
     QPushButton * buttonNAND;
@@ -54,7 +55,10 @@ private:
     QGraphicsTextItem * selectSource;
     QGraphicsTextItem * selectEnd;
 
+    bool nodeClockEnable;
     QTimer * updateTimer;
+    QTimer * nodeClock;
+    QGraphicsTextItem * nodeClockText;
 
     QRectF mainView;
     QRectF helpView;
@@ -62,6 +66,7 @@ private:
     QGraphicsTextItem * helpText1;
     QGraphicsTextItem * helpText2;
     QGraphicsTextItem * helpText3;
+    QGraphicsTextItem * helpText4;
 
     bool deletionEnable;
     QGraphicsTextItem * deletionEnableText;

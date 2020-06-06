@@ -21,8 +21,11 @@ public:
     bool level;
     bool gateOut;
     bool gateIn;
+    bool clocked;
     int xoffset();
     int yoffset();
+public slots:
+    void clockTimeout();
 private:
     int xpos;
     int ypos;

@@ -9,14 +9,19 @@ Environment::Environment() {
     connectingEnable = false;
     lineConnecting = 0;
     deletionEnable = false;
+    nodeClockEnable = false;
 
     mainView = QRectF(0, 0, sceneWidth, sceneHeight);
     helpView = QRectF(0, sceneHeight, sceneWidth, sceneHeight);
 
-    /******** Setup update timer for environment ********/
+    /******** Setup update timers for environment ********/
     this->updateTimer = new QTimer(this);
     connect(this->updateTimer, SIGNAL(timeout()), this, SLOT(updateEnvironment()));
     this->updateTimer->start(50);
+
+    this->nodeClock = new QTimer(this);
+    connect(this->nodeClock, SIGNAL(timeout()), this, SLOT(clockTimeout()));
+    this->nodeClock->start(nodeClockspeed);
 
     /******** Setup push buttons ********/
     this->buttonAND = new QPushButton();
@@ -88,6 +93,13 @@ Environment::Environment() {
     this->addItem(this->connectingEnableText);
     this->connectingEnableText->hide();
 
+    /******** Add text to indicate state of node clock mode ********/
+    this->nodeClockText = new QGraphicsTextItem("Node clock toggle enabled, double click node to toggle it");
+    this->nodeClockText->setX(sceneWidth - 300);
+    this->nodeClockText->setY(taskbar + 10);
+    this->addItem(this->nodeClockText);
+    this->nodeClockText->hide();
+
     /******** Add text to indicate state of deletion mode ********/
     this->deletionEnableText = new QGraphicsTextItem("Deletion enabled, double click object to delete it");
     this->deletionEnableText->setX(sceneWidth - 270);
@@ -113,6 +125,12 @@ Environment::Environment() {
     this->helpText3->setY(sceneHeight + 3*taskbar);
     this->helpText3->setScale(1.5);
     this->addItem(this->helpText3);
+
+    this->helpText4 = new QGraphicsTextItem("Press the \"X\" button to enable the toggling of node clocks on nodes");
+    this->helpText4->setX(padding);
+    this->helpText4->setY(sceneHeight + 4*taskbar);
+    this->helpText4->setScale(1.5);
+    this->addItem(this->helpText4);
 }
 
 void Environment::update() {
@@ -132,6 +150,18 @@ void Environment::update() {
 
 void Environment::updateEnvironment() {
     this->update();
+}
+
+void Environment::clockTimeout() {
+    if(!this->nodes->isEmpty()){
+        int i;
+        for(i = 0; i < this->nodes->length(); i++) {
+            Node * item = this->nodes->operator[](i);
+            if(item->clocked) {
+                item->level = item->level != 1;
+            }
+        }
+    }
 }
 
 void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
@@ -210,6 +240,22 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
             }
         }
     }
+
+
+    /******** Handle node clock events ********/
+    if(nodeClockEnable) {
+        if(!this->nodes->isEmpty()){
+            for(i = 0; i < this->nodes->length(); i++) {
+                Node * item = this->nodes->operator[](i);
+                if(item->isUnderMouse()) {
+                    item->clocked = item->clocked != 1;
+                }
+            }
+        }
+    }
+
+
+
 
     /******** Handle deletion events ********/
     if(deletionEnable) {
@@ -304,7 +350,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
 }
 
 void Environment::keyPressEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_C && !deletionEnable) {
+    if(event->key() == Qt::Key_C && !deletionEnable && !nodeClockEnable) {
         connectingEnable = connectingEnable != 1;
         if(connectingEnable) {
             this->connectingEnableText->show();
@@ -312,12 +358,21 @@ void Environment::keyPressEvent(QKeyEvent *event) {
             this->connectingEnableText->hide();
         }
     }
-    if(event->key() == Qt::Key_Delete && lineConnecting == 0 && !connectingEnable) {
+    if(event->key() == Qt::Key_Delete && lineConnecting == 0 && !connectingEnable && !nodeClockEnable) {
         deletionEnable = deletionEnable != 1;
         if(deletionEnable) {
             deletionEnableText->show();
         } else {
             deletionEnableText->hide();
+        }
+    }
+    if(event->key() == Qt::Key_X && lineConnecting == 0 && !connectingEnable && !deletionEnable) {
+        qDebug() << "Node toggle";
+        this->nodeClockEnable = this->nodeClockEnable != 1;
+        if(nodeClockEnable) {
+            nodeClockText->show();
+        } else {
+            nodeClockText->hide();
         }
     }
 }
