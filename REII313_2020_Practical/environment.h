@@ -62,6 +62,9 @@ private:
     QGraphicsTextItem * helpText1;
     QGraphicsTextItem * helpText2;
     QGraphicsTextItem * helpText3;
+
+    bool deletionEnable;
+    QGraphicsTextItem * deletionEnableText;
 };
 
 

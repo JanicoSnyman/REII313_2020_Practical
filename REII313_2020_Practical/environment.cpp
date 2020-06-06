@@ -8,6 +8,7 @@ Environment::Environment() {
     this->lines = new QList<Line *>;
     connectingEnable = false;
     lineConnecting = 0;
+    deletionEnable = false;
 
     mainView = QRectF(0, 0, sceneWidth, sceneHeight);
     helpView = QRectF(0, sceneHeight, sceneWidth, sceneHeight);
@@ -87,7 +88,14 @@ Environment::Environment() {
     this->addItem(this->connectingEnableText);
     this->connectingEnableText->hide();
 
+    /******** Add text to indicate state of deletion mode ********/
+    this->deletionEnableText = new QGraphicsTextItem("Deletion enabled, double click object to delete it");
+    this->deletionEnableText->setX(sceneWidth - 270);
+    this->deletionEnableText->setY(taskbar + 10);
+    this->addItem(this->deletionEnableText);
+    this->deletionEnableText->hide();
 
+    /******** Add help text to help view ********/
     this->helpText1 = new QGraphicsTextItem("Double click on an individual node to toggle its level");
     this->helpText1->setX(padding);
     this->helpText1->setY(sceneHeight + taskbar);
@@ -99,6 +107,12 @@ Environment::Environment() {
     this->helpText2->setY(sceneHeight + 2*taskbar);
     this->helpText2->setScale(1.5);
     this->addItem(this->helpText2);
+
+    this->helpText3 = new QGraphicsTextItem("Press the \"Delete\" button to enable the deletion of objects");
+    this->helpText3->setX(padding);
+    this->helpText3->setY(sceneHeight + 3*taskbar);
+    this->helpText3->setScale(1.5);
+    this->addItem(this->helpText3);
 }
 
 void Environment::update() {
@@ -136,6 +150,7 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
             } else if(item->isUnderMouse() && lineConnecting == 2) {
                 lineToConnect->endNode = item;
                 lineToConnect->selected = false;
+                lineToConnect = nullptr;
                 lineConnecting = 0;
                 this->selectEnd->hide();
             }
@@ -196,14 +211,114 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
         }
     }
 
+    /******** Handle deletion events ********/
+    if(deletionEnable) {
+        /******** Deletion of lines ********/
+        if(!this->lines->isEmpty()) {
+            for(i = 0; i < this->lines->length(); i++) {
+                Line * item = this->lines->operator[](i);
+                if(item->isUnderMouse()) {
+                    item->sourceNode = nullptr;
+                    item->endNode = nullptr;
+                    //this->removeItem(item);
+                    this->lines->removeAt(i);
+                    item->hide();
+                }
+            }
+        }
+
+        /******** Deletion of nodes ********/
+        if(!this->nodes->isEmpty()){
+            for(i = 0; i < this->nodes->length(); i++) {
+                Node * item = this->nodes->operator[](i);
+                if(item->isUnderMouse()) {
+                    /******** Clear all connections to this node from lines in scene ********/
+                    if(!this->lines->isEmpty()) {
+                        int j;
+                        for(j = 0; j < this->lines->length(); j++) {
+                            Line * line = this->lines->operator[](j);
+                            if(line->sourceNode == item) {
+                                line->sourceNode = nullptr;
+                            }
+                            if(line->endNode == item) {
+                                line->endNode = nullptr;
+                            }
+                        }
+                    }
+                    this->removeItem(item);
+                    this->nodes->removeAt(i);
+                    delete item;
+                }
+            }
+        }
+
+        /******** Deletion of gates ********/
+        if(!this->gates->isEmpty()) {
+            for(i = 0; i < this->gates->length(); i++) {
+                Gate * item = this->gates->operator[](i);
+                if(item->isUnderMouse()) {
+                    int j;
+                    /******** Clear connections to input nodes ********/
+                    if(!item->inputs->isEmpty()) {
+                        for(j = 0; j < item->inputs->length(); j++) {
+                            Node * inputNode = item->inputs->operator[](j);
+                            int k;
+                            for(k = 0; k < this->lines->length(); k++) {
+                                Line * line = this->lines->operator[](k);
+                                if(line->sourceNode == inputNode) {
+                                    line->sourceNode = nullptr;
+                                }
+                                if(line->endNode == inputNode) {
+                                    line->endNode = nullptr;
+                                }
+                            }
+                        }
+                    }
+                    /******** Clear connections to output nodes ********/
+                    if(!item->outputs->isEmpty()) {
+                        for(j = 0; j < item->outputs->length(); j++) {
+                            Node * outputNode = item->outputs->operator[](j);
+                            int k;
+                            for(k = 0; k < this->lines->length(); k++) {
+                                Line * line = this->lines->operator[](k);
+                                if(line->sourceNode == outputNode) {
+                                    line->sourceNode = nullptr;
+                                }
+                                if(line->endNode == outputNode) {
+                                    line->endNode = nullptr;
+                                }
+                            }
+                        }
+                    }
+                    this->removeItem(item);
+                    this->gates->removeAt(i);
+                    delete item;
+                }
+            }
+        }
+    }
+
+
     this->update();
     qDebug() << "Double Clicked!!";
 }
 
 void Environment::keyPressEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_C) {
-        connectingEnable = true;
-        this->connectingEnableText->show();
+    if(event->key() == Qt::Key_C && !deletionEnable) {
+        connectingEnable = connectingEnable != 1;
+        if(connectingEnable) {
+            this->connectingEnableText->show();
+        } else {
+            this->connectingEnableText->hide();
+        }
+    }
+    if(event->key() == Qt::Key_Delete && lineConnecting == 0 && !connectingEnable) {
+        deletionEnable = deletionEnable != 1;
+        if(deletionEnable) {
+            deletionEnableText->show();
+        } else {
+            deletionEnableText->hide();
+        }
     }
 }
 
