@@ -29,7 +29,10 @@ SOURCES += \
     gateand.cpp \
     gatenot.cpp \
     gateor.cpp \
-    gatenand.cpp
+    gatenand.cpp \
+    gatexor.cpp \
+    gatexnor.cpp \
+    gatenor.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -45,4 +48,7 @@ HEADERS += \
     gateand.h \
     gatenot.h \
     gateor.h \
-    gatenand.h
+    gatenand.h \
+    gatexor.h \
+    gatexnor.h \
+    gatenor.h

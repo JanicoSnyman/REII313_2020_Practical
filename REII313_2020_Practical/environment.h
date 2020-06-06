@@ -14,6 +14,9 @@
 #include "gatenand.h"
 #include "gatenot.h"
 #include "gateor.h"
+#include "gatenor.h"
+#include "gatexor.h"
+#include "gatexnor.h"
 #include "line.h"
 
 class Environment : public QGraphicsScene {
@@ -28,6 +31,9 @@ public slots:
     void addNAND();
     void addOR();
     void addNOT();
+    void addNOR();
+    void addXOR();
+    void addXNOR();
     void addNode();
     void addLine();
     void viewHelp();
@@ -38,6 +44,9 @@ private:
     QPushButton * buttonNAND;
     QPushButton * buttonOR;
     QPushButton * buttonNOT;
+    QPushButton * buttonNOR;
+    QPushButton * buttonXOR;
+    QPushButton * buttonXNOR;
     QPushButton * buttonNode;
     QPushButton * buttonLine;
     QPushButton * buttonHelp;
