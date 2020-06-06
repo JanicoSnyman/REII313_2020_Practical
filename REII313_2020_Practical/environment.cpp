@@ -71,7 +71,7 @@ Environment::Environment() {
     this->buttonMainview->setText("Return");
     this->addWidget(this->buttonMainview);
     connect(this->buttonMainview, SIGNAL(clicked()), this, SLOT(viewMain()));
-    ///////////////////
+
     this->buttonNOR = new QPushButton();
     this->buttonNOR->setGeometry(padding + 12*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonNOR->setText("NOR");
