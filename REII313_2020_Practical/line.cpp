@@ -10,6 +10,10 @@ Line::Line()
     this->selected = false;
 }
 
+Line::~Line() {
+
+}
+
 void Line::update() {
     if(sourceNode != nullptr) {
         this->sourcePoint = QPointF(this->sourceNode->scenePos().x() + this->sourceNode->xoffset() + 5, this->sourceNode->scenePos().y() + this->sourceNode->yoffset() + 5);

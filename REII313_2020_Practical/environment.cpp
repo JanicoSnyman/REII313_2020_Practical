@@ -107,6 +107,12 @@ Environment::Environment() {
     this->helpText2->setY(sceneHeight + 2*taskbar);
     this->helpText2->setScale(1.5);
     this->addItem(this->helpText2);
+
+    this->helpText3 = new QGraphicsTextItem("Press the \"Delete\" button to enable the deletion of objects");
+    this->helpText3->setX(padding);
+    this->helpText3->setY(sceneHeight + 3*taskbar);
+    this->helpText3->setScale(1.5);
+    this->addItem(this->helpText3);
 }
 
 void Environment::update() {
@@ -214,9 +220,9 @@ void Environment::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) {
                 if(item->isUnderMouse()) {
                     item->sourceNode = nullptr;
                     item->endNode = nullptr;
-                    this->removeItem(item);
+                    //this->removeItem(item);
                     this->lines->removeAt(i);
-                    delete item;
+                    item->hide();
                 }
             }
         }
