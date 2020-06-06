@@ -25,37 +25,37 @@ Environment::Environment() {
 
     /******** Setup push buttons ********/
     this->buttonAND = new QPushButton();
-    this->buttonAND->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonAND->setGeometry(padding + 4*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonAND->setText("AND");
     this->addWidget(this->buttonAND);
     connect(this->buttonAND, SIGNAL(clicked()), this, SLOT(addAND()));
 
     this->buttonNAND = new QPushButton();
-    this->buttonNAND->setGeometry(padding + 2*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonNAND->setGeometry(padding + 6*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonNAND->setText("NAND");
     this->addWidget(this->buttonNAND);
     connect(this->buttonNAND, SIGNAL(clicked()), this, SLOT(addNAND()));
 
     this->buttonOR = new QPushButton();
-    this->buttonOR->setGeometry(padding + 4*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonOR->setGeometry(padding + 8*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonOR->setText("OR");
     this->addWidget(this->buttonOR);
     connect(this->buttonOR, SIGNAL(clicked()), this, SLOT(addOR()));
 
     this->buttonNOT = new QPushButton();
-    this->buttonNOT->setGeometry(padding + 6*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonNOT->setGeometry(padding + 10*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonNOT->setText("NOT");
     this->addWidget(this->buttonNOT);
     connect(this->buttonNOT, SIGNAL(clicked()), this, SLOT(addNOT()));
 
     this->buttonNode = new QPushButton();
-    this->buttonNode->setGeometry(padding + 8*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonNode->setGeometry(padding, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonNode->setText("Node");
     this->addWidget(this->buttonNode);
     connect(this->buttonNode, SIGNAL(clicked()), this, SLOT(addNode()));
 
     this->buttonLine = new QPushButton();
-    this->buttonLine->setGeometry(padding + 10*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonLine->setGeometry(padding + 2*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
     this->buttonLine->setText("Line");
     this->addWidget(this->buttonLine);
     connect(this->buttonLine, SIGNAL(clicked()), this, SLOT(addLine()));
@@ -71,6 +71,24 @@ Environment::Environment() {
     this->buttonMainview->setText("Return");
     this->addWidget(this->buttonMainview);
     connect(this->buttonMainview, SIGNAL(clicked()), this, SLOT(viewMain()));
+    ///////////////////
+    this->buttonNOR = new QPushButton();
+    this->buttonNOR->setGeometry(padding + 12*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonNOR->setText("NOR");
+    this->addWidget(this->buttonNOR);
+    connect(this->buttonNOR, SIGNAL(clicked()), this, SLOT(addNOR()));
+
+    this->buttonXOR = new QPushButton();
+    this->buttonXOR->setGeometry(padding + 14*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonXOR->setText("XOR");
+    this->addWidget(this->buttonXOR);
+    connect(this->buttonXOR, SIGNAL(clicked()), this, SLOT(addXOR()));
+
+    this->buttonXNOR = new QPushButton();
+    this->buttonXNOR->setGeometry(padding + 16*taskbar, padding, 2*taskbar - 2*padding, taskbar - 2*padding);
+    this->buttonXNOR->setText("XNOR");
+    this->addWidget(this->buttonXNOR);
+    connect(this->buttonXNOR, SIGNAL(clicked()), this, SLOT(addXNOR()));
 
     this->addRect(0, 0, sceneWidth, taskbar);
 
@@ -427,6 +445,30 @@ void Environment::addLine() {
     this->addItem(newLine);
     this->lines->push_back(newLine);
     qDebug() << "add Line";
+}
+
+void Environment::addNOR() {
+    Gate * newGate = new GateNOR();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
+    qDebug() << "add Nor";
+}
+
+void Environment::addXOR() {
+    Gate * newGate = new GateXOR();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
+    qDebug() << "add Xor";
+}
+
+void Environment::addXNOR() {
+    Gate * newGate = new GateXNOR();
+    newGate->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->addItem(newGate);
+    this->gates->push_back(newGate);
+    qDebug() << "add Xnor";
 }
 
 void Environment::viewHelp() {
