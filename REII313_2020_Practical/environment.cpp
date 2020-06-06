@@ -9,6 +9,7 @@ Environment::Environment() {
     connectingEnable = false;
     lineConnecting = 0;
     deletionEnable = false;
+    nodeClockEnable = false;
 
     mainView = QRectF(0, 0, sceneWidth, sceneHeight);
     helpView = QRectF(0, sceneHeight, sceneWidth, sceneHeight);
@@ -93,7 +94,7 @@ Environment::Environment() {
     this->connectingEnableText->hide();
 
     /******** Add text to indicate state of node clock mode ********/
-    this->nodeClockText = new QGraphicsTextItem("Node clock toggle enabled, double click object to toggle it");
+    this->nodeClockText = new QGraphicsTextItem("Node clock toggle enabled, double click node to toggle it");
     this->nodeClockText->setX(sceneWidth - 300);
     this->nodeClockText->setY(taskbar + 10);
     this->addItem(this->nodeClockText);
@@ -124,6 +125,12 @@ Environment::Environment() {
     this->helpText3->setY(sceneHeight + 3*taskbar);
     this->helpText3->setScale(1.5);
     this->addItem(this->helpText3);
+
+    this->helpText4 = new QGraphicsTextItem("Press the \"X\" button to enable the toggling of node clocks on nodes");
+    this->helpText4->setX(padding);
+    this->helpText4->setY(sceneHeight + 4*taskbar);
+    this->helpText4->setScale(1.5);
+    this->addItem(this->helpText4);
 }
 
 void Environment::update() {
@@ -360,7 +367,8 @@ void Environment::keyPressEvent(QKeyEvent *event) {
         }
     }
     if(event->key() == Qt::Key_X && lineConnecting == 0 && !connectingEnable && !deletionEnable) {
-        nodeClockEnable = nodeClockEnable != 1;
+        qDebug() << "Node toggle";
+        this->nodeClockEnable = this->nodeClockEnable != 1;
         if(nodeClockEnable) {
             nodeClockText->show();
         } else {
